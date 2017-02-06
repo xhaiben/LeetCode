@@ -8,7 +8,7 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) {
         int[][] people = new int[][]{{7, 0}, {4, 4}, {7, 1}, {5, 0}, {6, 1}, {5, 2}};
-        reconstructQueue2(people);
+        reconstructQueue3(people);
     }
 
     /**
@@ -61,6 +61,7 @@ public class Main {
     /**
      * 按照 h,k 排好序之后
      * 此时 相对位置已确定，只需按照 K 值插入到响应位置即可
+     *
      * @param people
      */
     public static void reconstructQueue2(int[][] people) {
@@ -89,6 +90,28 @@ public class Main {
         for (int i = 0; i < list.size(); i++) {
             people[i] = list.get(i);
         }
+        for (int[] p : people) {
+            System.out.print(p[0]);
+            System.out.println(" " + p[1]);
+        }
+    }
+
+    /**
+     * 简化代码结构
+     *
+     * @param people
+     */
+    public static void reconstructQueue3(int[][] people) {
+        //优美的排序
+        Arrays.sort(people, ((o1, o2) ->
+                o1[0] != o2[0] ? o2[0] - o1[0] : o1[1] - o2[1]
+        ));
+        //插入用链表
+        List<int[]> list = new LinkedList<>();
+        for (int[] p : people) {
+            list.add(p[1], p);
+        }
+        int[][] res = list.toArray(new int[people.length][]);
         for (int[] p : people) {
             System.out.print(p[0]);
             System.out.println(" " + p[1]);

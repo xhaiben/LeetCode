@@ -11,6 +11,7 @@ public class Solution {
      * 不同的字符有2个
      * 所以其hamming Distance为2
      * 采用异或 将不同的位置为1 统计1的个数
+     *
      * @param x
      * @param y
      * @return
@@ -23,6 +24,16 @@ public class Solution {
                 count++;
             }
             z >>= 1;
+        }
+        return count;
+    }
+
+    public int hammingDistance2(int x, int y) {
+        int z = x ^ y;
+        int count = 0;
+        while (z != 0) {
+            count++;
+            z &= (z - 1);
         }
         return count;
     }
